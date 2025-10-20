@@ -15,6 +15,8 @@ class DashBoradView extends StatefulWidget {
 
 class _DashBoradViewState extends State<DashBoradView> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+  int activeIndex =
+      0; // 0: Dashboard, 1: Transactions, 2: Statistics, 3: Wallet, 4: Investments
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -33,12 +35,41 @@ class _DashBoradViewState extends State<DashBoradView> {
           : null,
       backgroundColor: const Color(0xFFF7F9FA),
       drawer: MediaQuery.sizeOf(context).width < SizeConfig.tablet
-          ? const CustomDrawer()
+          ? CustomDrawer(
+              activeIndex: activeIndex,
+              onItemSelected: (index) {
+                setState(() {
+                  activeIndex = index;
+                });
+                Navigator.of(context).maybePop();
+              },
+            )
           : null,
       body: AdaptiveLayout(
-        mobileLayout: (context) => const DashBoardMobileLayout(),
-        tabletLayout: (context) => const DashBoardTabletLayout(),
-        desktopLayout: (context) => const DashboardDesktopLayout(),
+        mobileLayout: (context) => DashBoardMobileLayout(
+          activeIndex: activeIndex,
+          onItemSelected: (index) {
+            setState(() {
+              activeIndex = index;
+            });
+          },
+        ),
+        tabletLayout: (context) => DashBoardTabletLayout(
+          activeIndex: activeIndex,
+          onItemSelected: (index) {
+            setState(() {
+              activeIndex = index;
+            });
+          },
+        ),
+        desktopLayout: (context) => DashboardDesktopLayout(
+          activeIndex: activeIndex,
+          onItemSelected: (index) {
+            setState(() {
+              activeIndex = index;
+            });
+          },
+        ),
       ),
     );
   }

@@ -3,9 +3,11 @@ import 'package:responsive_dash_board/shared/models/transction_model.dart';
 import 'package:responsive_dash_board/features/transactions/widgets/transction_item.dart';
 
 class TransctionHistoryListView extends StatelessWidget {
-  const TransctionHistoryListView({super.key});
+  const TransctionHistoryListView({super.key, this.items});
 
-  static const items = [
+  final List<TransctionModel>? items;
+
+  static const defaultItems = [
     TransctionModel(
         title: 'Cash Withdrawal',
         date: '13 Apr, 2022 ',
@@ -24,16 +26,9 @@ class TransctionHistoryListView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final source = items ?? defaultItems;
     return Column(
-      children: items.map((e) => TransctionItem(transctionModel: e)).toList(),
+      children: source.map((e) => TransctionItem(transctionModel: e)).toList(),
     );
-    return ListView.builder(
-        itemCount: items.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return TransctionItem(
-            transctionModel: items[index],
-          );
-        });
   }
 }

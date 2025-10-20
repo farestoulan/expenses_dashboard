@@ -7,14 +7,18 @@ import 'package:responsive_dash_board/shared/widgets/drawer_items_list_view.dart
 import 'package:responsive_dash_board/shared/widgets/user_info_list_tile.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
+  const CustomDrawer(
+      {super.key, required this.activeIndex, required this.onItemSelected});
+
+  final int activeIndex;
+  final ValueChanged<int> onItemSelected;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.sizeOf(context).width * .7,
       color: const Color.fromRGBO(255, 255, 255, 1),
-      child: const CustomScrollView(
+      child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: UserInfoListTile(
@@ -29,7 +33,10 @@ class CustomDrawer extends StatelessWidget {
               height: 8,
             ),
           ),
-          DrawerItemsListView(),
+          DrawerItemsListView(
+            activeIndex: activeIndex,
+            onItemSelected: onItemSelected,
+          ),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Column(
