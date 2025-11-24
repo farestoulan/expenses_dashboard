@@ -13,6 +13,7 @@ class MyCardsPageView extends StatelessWidget {
       children: List.generate(
         3,
         (index) => const MyCard(),
+        // test
       ),
     );
   }

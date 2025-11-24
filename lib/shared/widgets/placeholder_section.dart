@@ -13,7 +13,7 @@ class PlaceholderSection extends StatelessWidget {
   String get _title {
     switch (index) {
       case 1:
-        return 'My Transactions';
+        return 'My Transactionss';
       case 2:
         return 'Statistics';
       case 3:
